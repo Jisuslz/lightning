@@ -18,7 +18,7 @@ export class ProductosService {
     return this.http.post('http://localhost:3000/productos/nuevo', {
       nombre: 'torta',
       descripcion: 'la mejor',
-      img: 'assets/img/expresso.png',
+      img: 'assets/img/torta.png',
       precio: 5000,
       cantidad: 2
     });

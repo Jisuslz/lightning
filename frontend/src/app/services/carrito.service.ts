@@ -4,16 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CarritoService {
-
+  private productos:Array<any> = []
   constructor() {
   }
 
-  public agregarProducto(producto: any): void {
-    // Agrega el producto al carrito
-  }
   // Agrega el método getProductos()
-  public getProductos(): any[] {
-    return [];
+  public getProductos(): Array<any> {
+    return this.productos;
   }
 
 }

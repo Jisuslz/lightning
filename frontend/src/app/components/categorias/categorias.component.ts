@@ -35,6 +35,6 @@ export class CategoriasComponent implements OnInit {
 
   agregarCarrito(producto: any): void {
     // Agrega el producto al carrito
-    this.carritoService.agregarProducto(producto);
+    //this.carritoService.agregarProducto(producto);
   }
 }
