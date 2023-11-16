@@ -9,13 +9,15 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CarritoComponent } from './components/carrito/carrito.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CategoriasComponent,
-    CarritoComponent
+    CarritoComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
