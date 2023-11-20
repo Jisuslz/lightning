@@ -6,7 +6,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
   selector: 'app-categorias',
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.css'],
-  providers: [CarritoService] // Provide the CarritoService class
+  //providers: [CarritoService] // Provide the CarritoService class
 })
 export class CategoriasComponent implements OnInit {
   productos: any;
@@ -35,6 +35,7 @@ export class CategoriasComponent implements OnInit {
 
   agregarCarrito(producto: any): void {
     // Agrega el producto al carrito
-    //this.carritoService.agregarProducto(producto);
+    this.carritoService.agregarProducto(producto);
   }
+ 
 }
