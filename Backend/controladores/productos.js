@@ -1,49 +1,77 @@
-import Producto from "../modelos/Producto.js";
+let productos = [
+    {
+      id: 1,
+      nombre: 'Expresso',
+      descripcion: 'Americano',
+      img: 'assets/img/expresso.png',
+      precio: 2000,
+      cantidad: 5
+    },
+    {
+      id: 2,
+      nombre: 'Pan Frances',
+      descripcion: 'De mentiris',
+      img: 'assets/img/expresso.png',
+      precio: 3000,
+      cantidad: 5
+    },
+    {
+      id: 3,
+      nombre: 'recuerdos',
+      descripcion: 'muñeco pop',
+      img: 'assets/img/expresso.png',
+      precio: 20000,
+      cantidad: 5
+    },
+  ]
 
 
-
-const GET_ALL = async (req,res)=>{
-    const productos = await Producto.find({})
-    if (!productos) return res.status (404).json({mensaje: "Productos no encontrados"});
-    return res.status (200).send(productos);
+const GET_ALL = (req,res)=>{
+    return res.status (200).json(productos);
 }
 
-const NEW = async (req,res)=>{
-    const {nombre,descripcion, img,precio,cantidad} = req.body;
-    if(!nombre || !descripcion || !img || !precio || !cantidad) return res.status (404).json({mensaje: "Faltan parametros"});
-    const product = new Producto({
+const NEW = (req,res)=>{
+    const {nombre,descripcion,precio,cantidad} = req.body;
+    if(!nombre || !descripcion || !precio || !cantidad) return res.status (404).json({mensaje: "Faltan parametros"});
+    const id = productos[productos.length-1].id +1;
+    const product = {
+        id: id,
         nombre: nombre,
         descripcion: descripcion,
-        img: img,
         precio: precio,
         cantidad: cantidad
-    })
-    try {
-        await product.save()
-        return res.status (200).json({mensaje: "Creado"});
-    } catch (error) {
-        return res.status (400).json({mensaje: "Error al guardar"});
     }
+    productos.push(product)
+    return res.status (200).json({mensaje: "Creado"});
 }
 
-const GET_BY_ID = async (req,res)=>{
+const GET_BY_ID = (req,res)=>{
     const id = req.params.id;
-    const producto = await Producto.findById(id);
+    let producto;
+    for(let p of productos){
+        if(p.id == id) producto = p
+    }
     if(!producto) return res.status (404).json({mensaje: "Producto no encontrado"});
-    return res.status (200).send(producto);
+    return res.status (200).json(producto);
 }
 
-const PATCH = async (req,res)=>{
+const PATCH = (req,res)=>{
     const id = req.params.id;
-    let params = req.body;
-    if(!params.nombre && !params.descripcion && !params.img && !params.precio && !params.cantidad) return res.status (404).json({mensaje: "Faltan parametros"});
-    try {
-        await Producto.findByIdAndUpdate(id, params)
-        return res.status (200).json({mensaje: "Actualizado"});
+    let {nombre,descripcion,precio,cantidad} = req.body;
+    if(!nombre || !descripcion || !precio || !cantidad) return res.status (404).json({mensaje: "Faltan parametros"});
+    let encontrado = false;
+    for(let p of productos){
+        if(p.id == id) {
+            encontrado = true
+            p.nombre= nombre
+            p.descripcion= descripcion
+            p.precio= precio
+            p.cantidad= cantidad
+        }
     }
-    catch(e){
-        return res.status (404).json({mensaje: "Producto no encontrado"});
-    }
+    if(!encontrado) return res.status (404).json({mensaje: "Producto no encontrado"});
+
+    return res.status (200).json({mensaje: "Actualizado"});
 }
 
 
